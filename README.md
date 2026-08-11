@@ -19,6 +19,9 @@ No build, npm install, or command line is required. Do not select the ZIP itself
 
 - **Add a proxy:** enter a name, protocol, host, and port, then click **Add**.
 - **Import profiles:** click **Import JSON** and select a schema-version-1 `browser-profiles.json` file.
+- **Paste profiles:** copy JSON, `scheme://host:port`, `host:port`, or one `name,scheme,host,port` entry per line, then click **Paste import**.
+- **Copy and edit:** copy a node as standard JSON or edit its name, scheme, host, and port from the node row.
+- **Search and collapse:** filter nodes by name, address, scheme, or tag, and collapse the whole node list.
 - **Enable a proxy:** click a proxy card. Click **Direct** to restore the direct connection.
 - **Check a proxy:** click **Test** to display the exit IP, country, and latency.
 - **Change User-Agent:** choose a preset or enter a custom value, then click **Apply User-Agent**. Clear the field and apply it to restore Chrome's default.

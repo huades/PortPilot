@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>PortPilot</title>
   <link rel="stylesheet" href="popup.css">
+  <style>.node-tools{display:flex;align-items:center;gap:7px}.text-button{border:0;background:transparent;padding:2px;font:10px monospace;text-decoration:underline}.search{width:100%;margin:0 0 9px}.profile-row{grid-template-columns:1fr auto auto auto auto;gap:4px}.profile .action{font-size:10px}#profileArea.list-collapsed{display:none}form #cancelEdit{grid-column:1/-1;background:var(--surface);color:inherit}</style>
 </head>
 <body>
   <header>
@@ -17,14 +18,16 @@
   </header>
   <main>
     <section>
-      <div class="heading"><h1 data-i18n="profiles">代理节点</h1><label class="import"><span data-i18n="import">导入 JSON</span><input id="import" type="file" accept=".json,application/json"></label></div>
-      <div id="profiles"></div>
+      <div class="heading"><h1 data-i18n="profiles">代理节点</h1><div class="node-tools"><button id="pasteImport" class="text-button" data-i18n="pasteImport">粘贴导入</button><label class="import"><span data-i18n="import">导入 JSON</span><input id="import" type="file" accept=".json,application/json,text/plain"></label><button id="toggleList" class="text-button" data-i18n="collapseList">折叠列表</button></div></div>
+      <input id="profileSearch" class="search" type="search" data-i18n-placeholder="searchPlaceholder" placeholder="搜索名称、地址、协议或标签">
+      <div id="profileArea"><div id="profiles"></div></div>
       <form id="addForm">
         <input required name="name" data-i18n-placeholder="profileName" placeholder="节点名称">
         <select name="scheme" aria-label="Proxy scheme"><option>http</option><option>https</option><option>socks5</option><option>socks4</option></select>
         <input required name="host" placeholder="127.0.0.1">
         <input required name="port" type="number" min="1" max="65535" placeholder="42000">
-        <button data-i18n="add">添加</button>
+        <button id="saveProfile" data-i18n="add">添加</button>
+        <button id="cancelEdit" type="button" class="secondary" data-i18n="cancel" hidden>取消编辑</button>
       </form>
     </section>
     <section>

@@ -4,7 +4,7 @@
   "short_name": "PortPilot",
   "version": "0.2.0",
   "description": "Bilingual proxy node and User-Agent switcher with light and dark themes.",
-  "permissions": ["proxy", "storage", "declarativeNetRequest"],
+  "permissions": ["proxy", "storage", "declarativeNetRequest", "clipboardRead", "clipboardWrite"],
   "host_permissions": ["<all_urls>"],
   "background": { "service_worker": "background.js", "type": "module" },
   "icons": {
