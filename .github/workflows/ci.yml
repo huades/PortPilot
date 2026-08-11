@@ -19,8 +19,11 @@ jobs:
           node --check popup.js
           grep -q 'id="pasteImport"' popup.html
           grep -q 'id="profileSearch"' popup.html
+          grep -q 'id="clearAll"' popup.html
+          grep -q 'id="themeSelect"' popup.html
           grep -q 'data-action="edit"' popup.js
           grep -q 'profileListCollapsed' popup.js
+          grep -q 'profile-result' popup.js
       - name: Package extension
         run: zip -r portpilot-extension.zip manifest.json background.js popup.js popup.html popup.css icons
       - uses: actions/upload-artifact@v4

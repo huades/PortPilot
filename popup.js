@@ -8,16 +8,16 @@ const UA_PRESETS = [
     { id: "safariIphone", value: "Mozilla/5.0 (iPhone; CPU iPhone OS 18_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.6 Mobile/15E148 Safari/604.1" }
 ];
 const TEXT = {
-    zh: { direct: "关闭代理", profiles: "代理节点", import: "导入 JSON", pasteImport: "粘贴导入", searchPlaceholder: "搜索名称、地址、协议或标签", collapseList: "折叠列表", expandList: "展开列表", profileName: "节点名称", add: "添加", save: "保存修改", cancel: "取消编辑", edit: "编辑", copy: "复制", copied: "已复制节点 {name}", noResults: "没有匹配的节点", rotateUa: "换一个 UA", applyUa: "应用 User-Agent", uaPlaceholder: "留空以恢复浏览器默认 UA", empty: "导入 PortPilot JSON 文件<br>或添加第一个本地代理节点。", test: "测试", delete: "删除", expand: "展开节点信息", collapse: "折叠节点信息", checking: "检测中…", failed: "失败", unknown: "未知", imported: "已导入 {count} 个节点", importFailed: "导入失败", uaEnabled: "User-Agent 已启用", uaRestored: "已恢复浏览器默认 User-Agent", uaRotated: "已自动更换为 {name}", directStatus: "未使用代理", proxyStatus: "代理已启用", hint: "Chrome 不支持需要账号密码认证的 SOCKS5。", defaultUa: "自定义 / 浏览器默认", chromeWindows: "Chrome / Windows", edgeWindows: "Edge / Windows", chromeMac: "Chrome / macOS", chromeAndroid: "Chrome / Android", safariIphone: "Safari / iPhone" },
-    en: { direct: "No proxy", profiles: "Proxy nodes", import: "Import JSON", pasteImport: "Paste import", searchPlaceholder: "Search name, address, scheme, or tag", collapseList: "Collapse list", expandList: "Expand list", profileName: "Node name", add: "Add", save: "Save changes", cancel: "Cancel edit", edit: "Edit", copy: "Copy", copied: "Copied node {name}", noResults: "No matching nodes", rotateUa: "Change UA", applyUa: "Apply User-Agent", uaPlaceholder: "Leave empty to restore the browser default UA", empty: "Import a PortPilot JSON file<br>or add your first local proxy.", test: "Test", delete: "Delete", expand: "Expand node details", collapse: "Collapse node details", checking: "Checking…", failed: "Failed", unknown: "Unknown", imported: "Imported {count} nodes", importFailed: "Import failed", uaEnabled: "User-Agent enabled", uaRestored: "Browser default User-Agent restored", uaRotated: "Changed automatically to {name}", directStatus: "No proxy", proxyStatus: "Proxy active", hint: "Chrome does not support authenticated SOCKS5 proxies.", defaultUa: "Custom / browser default", chromeWindows: "Chrome / Windows", edgeWindows: "Edge / Windows", chromeMac: "Chrome / macOS", chromeAndroid: "Chrome / Android", safariIphone: "Safari / iPhone" }
+    zh: { direct: "关闭代理", startProxy: "开始代理", stopProxy: "关闭代理", profiles: "代理节点", import: "导入 JSON", pasteImport: "粘贴导入", clearAll: "删除全部", confirmClear: "确定删除所有代理节点吗？", cleared: "已删除全部节点", searchPlaceholder: "搜索名称、地址、协议或标签", collapseList: "折叠列表", expandList: "展开列表", profileName: "节点名称", add: "添加", save: "保存修改", cancel: "取消编辑", edit: "编辑", copy: "复制", copied: "已复制节点 {name}", noResults: "没有匹配的节点", rotateUa: "换一个 UA", applyUa: "应用 UA", closeUa: "关闭 UA", uaPlaceholder: "留空以恢复浏览器默认 UA", empty: "导入 PortPilot JSON 文件<br>或添加第一个本地代理节点。", test: "测试", delete: "删除", expand: "展开节点信息", collapse: "折叠节点信息", checking: "检测中…", failed: "失败", unknown: "未知", imported: "已导入 {count} 个节点", importFailed: "导入失败", uaEnabled: "User-Agent 已启用", uaRestored: "已关闭自定义 User-Agent", uaRotated: "已自动更换为 {name}", directStatus: "未使用代理", proxyStatus: "代理已启用", hint: "Chrome 不支持需要账号密码认证的 SOCKS5。", themeSystem: "跟随系统", themeLight: "浅色", themeDark: "深色", defaultUa: "自定义 / 浏览器默认", chromeWindows: "Chrome / Windows", edgeWindows: "Edge / Windows", chromeMac: "Chrome / macOS", chromeAndroid: "Chrome / Android", safariIphone: "Safari / iPhone" },
+    en: { direct: "No proxy", startProxy: "Start proxy", stopProxy: "Stop proxy", profiles: "Proxy nodes", import: "Import JSON", pasteImport: "Paste import", clearAll: "Delete all", confirmClear: "Delete all proxy nodes?", cleared: "All nodes deleted", searchPlaceholder: "Search name, address, scheme, or tag", collapseList: "Collapse list", expandList: "Expand list", profileName: "Node name", add: "Add", save: "Save changes", cancel: "Cancel edit", edit: "Edit", copy: "Copy", copied: "Copied node {name}", noResults: "No matching nodes", rotateUa: "Change UA", applyUa: "Apply UA", closeUa: "Disable UA", uaPlaceholder: "Leave empty to restore the browser default UA", empty: "Import a PortPilot JSON file<br>or add your first local proxy.", test: "Test", delete: "Delete", expand: "Expand node details", collapse: "Collapse node details", checking: "Checking…", failed: "Failed", unknown: "Unknown", imported: "Imported {count} nodes", importFailed: "Import failed", uaEnabled: "User-Agent enabled", uaRestored: "Custom User-Agent disabled", uaRotated: "Changed automatically to {name}", directStatus: "No proxy", proxyStatus: "Proxy active", hint: "Chrome does not support authenticated SOCKS5 proxies.", themeSystem: "System", themeLight: "Light", themeDark: "Dark", defaultUa: "Custom / browser default", chromeWindows: "Chrome / Windows", edgeWindows: "Edge / Windows", chromeMac: "Chrome / macOS", chromeAndroid: "Chrome / Android", safariIphone: "Safari / iPhone" }
 };
-let state = { profiles: [], activeProfileId: null, userAgent: null, language: "zh", theme: "light", listCollapsed: false, searchQuery: "", editingId: null };
+let state = { profiles: [], activeProfileId: null, lastProfileId: null, userAgent: null, language: "zh", theme: "system", listCollapsed: false, searchQuery: "", editingId: null, testResults: new Map() };
 const t = (key, vars = {}) => Object.entries(vars).reduce((value, [name, replacement]) => value.replace(`{${name}}`, String(replacement)), TEXT[state.language][key]);
 function esc(value) { const div = document.createElement("div"); div.textContent = value; return div.innerHTML; }
 async function persistProfiles() { await chrome.storage.local.set({ profiles: state.profiles }); }
-async function persistPreferences() { await chrome.storage.local.set({ language: state.language, theme: state.theme, profileListCollapsed: state.listCollapsed }); }
+async function persistPreferences() { await chrome.storage.local.set({ language: state.language, theme: state.theme, profileListCollapsed: state.listCollapsed, lastProfileId: state.lastProfileId }); }
 async function activate(profile) { const result = await chrome.runtime.sendMessage({ type: "SET_PROXY", profile }); if (!result?.ok)
-    throw new Error(result?.error || "Proxy update failed"); state.activeProfileId = profile?.id ?? null; state.listCollapsed = Boolean(profile); await persistPreferences(); renderProfiles(); }
+    throw new Error(result?.error || "Proxy update failed"); state.activeProfileId = profile?.id ?? null; if (profile) state.lastProfileId = profile.id; state.listCollapsed = Boolean(profile); await persistPreferences(); renderProfiles(); }
 function renderPresets() { const select = $("#uaPreset"); const current = UA_PRESETS.find(item => item.value === $("#ua").value); select.innerHTML = `<option value="">${t("defaultUa")}</option>${UA_PRESETS.map(item => `<option value="${item.id}">${t(item.id)}</option>`).join("")}`; select.value = current?.id || ""; }
 function renderProfiles() {
     const list = $("#profiles");
@@ -26,17 +26,19 @@ function renderProfiles() {
     const active = state.profiles.find(profile => profile.id === state.activeProfileId);
     const visible = state.listCollapsed ? (active ? [active] : []) : filtered;
     list.innerHTML = visible.length ? visible.map(profile => {
-        return `<article class="profile ${profile.id === state.activeProfileId ? "active" : ""}" data-id="${esc(profile.id)}"><div class="profile-row"><div class="profile-name"><strong>${esc(profile.name)}</strong></div><button class="action" data-action="copy">${t("copy")}</button><button class="action" data-action="edit">${t("edit")}</button><button class="action" data-action="test">${t("test")}</button><button class="action" data-action="delete" aria-label="${t("delete")}" title="${t("delete")}">×</button></div><div class="profile-detail"><span>${profile.scheme.toUpperCase()} · ${esc(profile.host)}:${profile.port}</span>${profile.tags?.length ? `<br><span>${profile.tags.map(esc).join(" · ")}</span>` : ""}</div></article>`;
+        return `<article class="profile ${profile.id === state.activeProfileId ? "active" : ""}" data-id="${esc(profile.id)}"><div class="profile-row"><div class="profile-name"><strong>${esc(profile.name)}</strong></div><button class="action" data-action="copy">${t("copy")}</button><button class="action" data-action="edit">${t("edit")}</button><button class="action" data-action="test">${t("test")}</button><button class="action" data-action="delete" aria-label="${t("delete")}" title="${t("delete")}">×</button></div><div class="profile-detail"><span>${profile.scheme.toUpperCase()} · ${esc(profile.host)}:${profile.port}</span>${profile.tags?.length ? `<br><span>${profile.tags.map(esc).join(" · ")}</span>` : ""}</div><div class="profile-result">${esc(state.testResults.get(profile.id) || "")}</div></article>`;
     }).join("") : state.listCollapsed ? "" : `<div class="empty">${state.profiles.length ? t("noResults") : t("empty")}</div>`;
     $("#toggleList").textContent = t(state.listCollapsed ? "expandList" : "collapseList");
     $("#status").textContent = t(state.activeProfileId ? "proxyStatus" : "directStatus").toUpperCase();
+    $("#direct").textContent = t(state.activeProfileId ? "stopProxy" : "startProxy");
     $("#direct").classList.toggle("active", !state.activeProfileId);
 }
-function renderLanguage() { document.documentElement.lang = state.language === "zh" ? "zh-CN" : "en"; document.querySelectorAll("[data-i18n]").forEach(el => { el.textContent = t(el.dataset.i18n); }); document.querySelectorAll("[data-i18n-placeholder]").forEach(el => { el.placeholder = t(el.dataset.i18nPlaceholder); }); $("#language").textContent = state.language === "zh" ? "EN" : "中文"; renderPresets(); renderProfiles(); if (state.editingId) $("#saveProfile").textContent = t("save"); if (!$("#checkResult").dataset.message)
+function renderLanguage() { document.documentElement.lang = state.language === "zh" ? "zh-CN" : "en"; document.querySelectorAll("[data-i18n]").forEach(el => { el.textContent = t(el.dataset.i18n); }); document.querySelectorAll("[data-i18n-placeholder]").forEach(el => { el.placeholder = t(el.dataset.i18nPlaceholder); }); $("#language").textContent = state.language === "zh" ? "EN" : "中文"; renderPresets(); renderTheme(); renderProfiles(); renderUaAction(); if (state.editingId) $("#saveProfile").textContent = t("save"); if (!$("#checkResult").dataset.message)
     $("#checkResult").textContent = t("hint"); }
-function renderTheme() { document.documentElement.dataset.theme = state.theme; $("#theme").textContent = state.theme === "light" ? "☾" : "☀"; }
+function renderTheme() { const select = $("#themeSelect"); select.innerHTML = `<option value="system">${t("themeSystem")}</option><option value="light">${t("themeLight")}</option><option value="dark">${t("themeDark")}</option>`; select.value = state.theme; document.documentElement.dataset.theme = state.theme === "system" ? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : state.theme; }
+function renderUaAction() { $("#applyUa").textContent = t(state.userAgent ? "closeUa" : "applyUa"); }
 function showMessage(key, vars = {}) { const output = $("#checkResult"); output.dataset.message = key; output.textContent = t(key, vars); }
-async function check(profile) { showMessage("checking"); const old = state.profiles.find(p => p.id === state.activeProfileId) || null; const started = performance.now(); try {
+async function check(profile) { const old = state.profiles.find(p => p.id === state.activeProfileId) || null; const started = performance.now(); state.testResults.set(profile.id, t("checking")); renderProfiles(); try {
     await activate(profile);
     const controller = new AbortController();
     setTimeout(() => controller.abort(), 10000);
@@ -44,14 +46,16 @@ async function check(profile) { showMessage("checking"); const old = state.profi
     const data = await response.json();
     if (!response.ok || data.success === false)
         throw new Error(data.message || `HTTP ${response.status}`);
-    $("#checkResult").textContent = `${data.ip} / ${data.country || t("unknown")} / ${Math.round(performance.now() - started)} ms`;
+    state.testResults.set(profile.id, `${data.ip} / ${data.country || t("unknown")} / ${Math.round(performance.now() - started)} ms`);
+    renderProfiles();
 }
 catch (error) {
     await activate(old);
-    $("#checkResult").textContent = `${t("failed")} / ${error instanceof Error ? error.message : String(error)}`;
+    state.testResults.set(profile.id, `${t("failed")} / ${error instanceof Error ? error.message : String(error)}`);
+    renderProfiles();
 } }
 async function applyUa(value, message) { const result = await chrome.runtime.sendMessage({ type: "SET_UA", value }); if (!result?.ok)
-    throw new Error(result?.error || "User-Agent update failed"); state.userAgent = value; $("#ua").value = value || ""; renderPresets(); message?.(); }
+    throw new Error(result?.error || "User-Agent update failed"); state.userAgent = value; $("#ua").value = value || ""; renderPresets(); renderUaAction(); message?.(); }
 function normalizeProfiles(text) {
     const trimmed = text.trim();
     if (!trimmed)
@@ -104,7 +108,7 @@ function editProfile(profile) {
     $("#cancelEdit").hidden = false;
     form.elements.name.focus();
 }
-async function init() { const saved = await chrome.storage.local.get(["profiles", "activeProfileId", "userAgent", "language", "theme", "profileListCollapsed"]); state = { profiles: saved.profiles || [], activeProfileId: saved.activeProfileId || null, userAgent: saved.userAgent || null, language: saved.language || "zh", theme: saved.theme || "light", listCollapsed: Boolean(saved.profileListCollapsed), searchQuery: "", editingId: null }; $("#ua").value = state.userAgent || ""; renderTheme(); renderLanguage(); }
+async function init() { const saved = await chrome.storage.local.get(["profiles", "activeProfileId", "lastProfileId", "userAgent", "language", "theme", "profileListCollapsed"]); state = { profiles: saved.profiles || [], activeProfileId: saved.activeProfileId || null, lastProfileId: saved.lastProfileId || saved.activeProfileId || null, userAgent: saved.userAgent || null, language: saved.language || "zh", theme: saved.theme || "system", listCollapsed: Boolean(saved.profileListCollapsed), searchQuery: "", editingId: null, testResults: new Map() }; $("#ua").value = state.userAgent || ""; renderLanguage(); }
 $("#profiles").addEventListener("click", async (event) => { const target = event.target, button = target.closest("button"), card = target.closest(".profile"); if (!card)
     return; const profile = state.profiles.find(item => item.id === card.dataset.id); if (!profile)
     return; if (button?.dataset.action === "delete") {
@@ -124,11 +128,12 @@ else if (button?.dataset.action === "test")
     await check(profile);
 else if (!button)
     await activate(profile); });
-$("#direct").addEventListener("click", () => void activate(null));
+$("#direct").addEventListener("click", async () => { if (state.activeProfileId) await activate(null); else { const profile = state.profiles.find(item => item.id === state.lastProfileId) || state.profiles[0]; if (profile) await activate(profile); } });
 $("#language").addEventListener("click", async () => { state.language = state.language === "zh" ? "en" : "zh"; await persistPreferences(); renderLanguage(); });
-$("#theme").addEventListener("click", async () => { state.theme = state.theme === "light" ? "dark" : "light"; await persistPreferences(); renderTheme(); });
+$("#themeSelect").addEventListener("change", async event => { state.theme = event.target.value; await persistPreferences(); renderTheme(); });
 $("#profileSearch").addEventListener("input", event => { state.searchQuery = event.target.value; renderProfiles(); });
 $("#toggleList").addEventListener("click", async () => { state.listCollapsed = !state.listCollapsed; await persistPreferences(); renderProfiles(); });
+$("#clearAll").addEventListener("click", async () => { if (!state.profiles.length || !confirm(t("confirmClear"))) return; if (state.activeProfileId) await activate(null); state.profiles = []; state.lastProfileId = null; state.testResults.clear(); stopEditing(); await Promise.all([persistProfiles(), persistPreferences()]); renderProfiles(); showMessage("cleared"); });
 $("#pasteImport").addEventListener("click", async () => { try {
     await importProfiles(await navigator.clipboard.readText());
 }
@@ -156,8 +161,9 @@ $("#addForm").addEventListener("submit", async (event) => { event.preventDefault
 else
     state.profiles.push(profile); await persistProfiles(); stopEditing(); renderProfiles(); });
 $("#cancelEdit").addEventListener("click", stopEditing);
+$("#profiles").addEventListener("dblclick", async event => { if (!event.target.closest(".profile")) return; state.listCollapsed = false; await persistPreferences(); renderProfiles(); });
 $("#uaPreset").addEventListener("change", event => { const preset = UA_PRESETS.find(item => item.id === event.target.value); $("#ua").value = preset?.value || ""; });
 $("#rotateUa").addEventListener("click", async () => { const candidates = UA_PRESETS.filter(item => item.value !== state.userAgent); const selected = candidates[Math.floor(Math.random() * candidates.length)] || UA_PRESETS[0]; await applyUa(selected.value, () => showMessage("uaRotated", { name: t(selected.id) })); });
-$("#applyUa").addEventListener("click", async () => { const value = $("#ua").value.trim() || null; await applyUa(value, () => showMessage(value ? "uaEnabled" : "uaRestored")); });
+$("#applyUa").addEventListener("click", async () => { const value = state.userAgent ? null : ($("#ua").value.trim() || null); await applyUa(value, () => showMessage(value ? "uaEnabled" : "uaRestored")); });
 void init();
 export {};

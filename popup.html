@@ -5,20 +5,20 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>PortPilot</title>
   <link rel="stylesheet" href="popup.css">
-  <style>.node-tools{display:flex;align-items:center;gap:7px}.text-button{border:0;background:transparent;padding:2px;font:10px monospace;text-decoration:underline}.search{width:100%;margin:0 0 9px}.profile-row{grid-template-columns:1fr auto auto auto auto;gap:4px}.profile .action{font-size:10px}#profileArea.list-collapsed{display:none}form #cancelEdit{grid-column:1/-1;background:var(--surface);color:inherit}</style>
+  <style>:root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",Arial,sans-serif;font-size:14px}body{width:360px}main{padding:12px}.node-tools{display:flex;align-items:center;justify-content:flex-end;gap:6px;flex-wrap:wrap}.text-button{border:0;background:transparent;padding:2px;font-size:11px;text-decoration:underline}.danger-text{color:#c33}.search{width:100%;margin:0 0 8px}.profile{margin-left:3px;margin-right:3px}.profile-row{grid-template-columns:1fr auto auto auto auto;gap:3px;padding:8px}.profile .action{font-size:11px}.profile-detail{padding:0 10px 8px;font-size:11px}.profile-result{padding:7px 10px;border-top:1px dashed var(--border);color:var(--muted);font-size:11px}.profile-result:empty{display:none}#profileArea.list-collapsed{display:none}form #cancelEdit{grid-column:1/-1;background:var(--surface);color:inherit}.theme-select{width:74px;padding:6px 4px;font-size:11px}</style>
 </head>
 <body>
   <header>
     <div class="brand"><div class="logo">P</div><div><b>PORTPILOT</b><span id="status">DIRECT</span></div></div>
     <div class="toolbar">
       <button id="language" class="icon-button" title="Language" aria-label="Language">中 / EN</button>
-      <button id="theme" class="icon-button" title="Theme" aria-label="Theme">☾</button>
+      <select id="themeSelect" class="theme-select" title="Theme" aria-label="Theme"></select>
       <button id="direct" data-i18n="direct">直连</button>
     </div>
   </header>
   <main>
     <section>
-      <div class="heading"><h1 data-i18n="profiles">代理节点</h1><div class="node-tools"><button id="pasteImport" class="text-button" data-i18n="pasteImport">粘贴导入</button><label class="import"><span data-i18n="import">导入 JSON</span><input id="import" type="file" accept=".json,application/json,text/plain"></label><button id="toggleList" class="text-button" data-i18n="collapseList">折叠列表</button></div></div>
+      <div class="heading"><h1 data-i18n="profiles">代理节点</h1><div class="node-tools"><button id="pasteImport" class="text-button" data-i18n="pasteImport">粘贴导入</button><label class="import"><span data-i18n="import">导入 JSON</span><input id="import" type="file" accept=".json,application/json,text/plain"></label><button id="toggleList" class="text-button" data-i18n="collapseList">折叠列表</button><button id="clearAll" class="text-button danger-text" data-i18n="clearAll">删除全部</button></div></div>
       <input id="profileSearch" class="search" type="search" data-i18n-placeholder="searchPlaceholder" placeholder="搜索名称、地址、协议或标签">
       <div id="profileArea"><div id="profiles"></div></div>
       <form id="addForm">
