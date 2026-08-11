@@ -22,7 +22,7 @@ jobs:
           grep -q 'id="clearAll"' popup.html
           grep -q 'id="themeSelect"' popup.html
           grep -q 'data-action="edit"' popup.js
-          grep -q 'profileListCollapsed' popup.js
+          grep -q 'listCollapsed' popup.js
           grep -q 'profile-result' popup.js
       - name: Package extension
         run: zip -r portpilot-extension.zip manifest.json background.js popup.js popup.html popup.css icons

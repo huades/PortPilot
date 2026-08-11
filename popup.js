@@ -15,9 +15,9 @@ let state = { profiles: [], activeProfileId: null, lastProfileId: null, userAgen
 const t = (key, vars = {}) => Object.entries(vars).reduce((value, [name, replacement]) => value.replace(`{${name}}`, String(replacement)), TEXT[state.language][key]);
 function esc(value) { const div = document.createElement("div"); div.textContent = value; return div.innerHTML; }
 async function persistProfiles() { await chrome.storage.local.set({ profiles: state.profiles }); }
-async function persistPreferences() { await chrome.storage.local.set({ language: state.language, theme: state.theme, profileListCollapsed: state.listCollapsed, lastProfileId: state.lastProfileId }); }
+async function persistPreferences() { await chrome.storage.local.set({ language: state.language, theme: state.theme, lastProfileId: state.lastProfileId }); }
 async function activate(profile) { const result = await chrome.runtime.sendMessage({ type: "SET_PROXY", profile }); if (!result?.ok)
-    throw new Error(result?.error || "Proxy update failed"); state.activeProfileId = profile?.id ?? null; if (profile) state.lastProfileId = profile.id; state.listCollapsed = Boolean(profile); await persistPreferences(); renderProfiles(); }
+    throw new Error(result?.error || "Proxy update failed"); state.activeProfileId = profile?.id ?? null; if (profile) state.lastProfileId = profile.id; await persistPreferences(); renderProfiles(); }
 function renderPresets() { const select = $("#uaPreset"); const current = UA_PRESETS.find(item => item.value === $("#ua").value); select.innerHTML = `<option value="">${t("defaultUa")}</option>${UA_PRESETS.map(item => `<option value="${item.id}">${t(item.id)}</option>`).join("")}`; select.value = current?.id || ""; }
 function renderProfiles() {
     const list = $("#profiles");
@@ -108,7 +108,7 @@ function editProfile(profile) {
     $("#cancelEdit").hidden = false;
     form.elements.name.focus();
 }
-async function init() { const saved = await chrome.storage.local.get(["profiles", "activeProfileId", "lastProfileId", "userAgent", "language", "theme", "profileListCollapsed"]); state = { profiles: saved.profiles || [], activeProfileId: saved.activeProfileId || null, lastProfileId: saved.lastProfileId || saved.activeProfileId || null, userAgent: saved.userAgent || null, language: saved.language || "zh", theme: saved.theme || "system", listCollapsed: Boolean(saved.profileListCollapsed), searchQuery: "", editingId: null, testResults: new Map() }; $("#ua").value = state.userAgent || ""; renderLanguage(); }
+async function init() { const saved = await chrome.storage.local.get(["profiles", "activeProfileId", "lastProfileId", "userAgent", "language", "theme"]); state = { profiles: saved.profiles || [], activeProfileId: saved.activeProfileId || null, lastProfileId: saved.lastProfileId || saved.activeProfileId || null, userAgent: saved.userAgent || null, language: saved.language || "zh", theme: saved.theme || "system", listCollapsed: false, searchQuery: "", editingId: null, testResults: new Map() }; $("#ua").value = state.userAgent || ""; renderLanguage(); }
 $("#profiles").addEventListener("click", async (event) => { const target = event.target, button = target.closest("button"), card = target.closest(".profile"); if (!card)
     return; const profile = state.profiles.find(item => item.id === card.dataset.id); if (!profile)
     return; if (button?.dataset.action === "delete") {
@@ -132,7 +132,7 @@ $("#direct").addEventListener("click", async () => { if (state.activeProfileId) 
 $("#language").addEventListener("click", async () => { state.language = state.language === "zh" ? "en" : "zh"; await persistPreferences(); renderLanguage(); });
 $("#themeSelect").addEventListener("change", async event => { state.theme = event.target.value; await persistPreferences(); renderTheme(); });
 $("#profileSearch").addEventListener("input", event => { state.searchQuery = event.target.value; renderProfiles(); });
-$("#toggleList").addEventListener("click", async () => { state.listCollapsed = !state.listCollapsed; await persistPreferences(); renderProfiles(); });
+$("#toggleList").addEventListener("click", () => { state.listCollapsed = !state.listCollapsed; renderProfiles(); });
 $("#clearAll").addEventListener("click", async () => { if (!state.profiles.length || !confirm(t("confirmClear"))) return; if (state.activeProfileId) await activate(null); state.profiles = []; state.lastProfileId = null; state.testResults.clear(); stopEditing(); await Promise.all([persistProfiles(), persistPreferences()]); renderProfiles(); showMessage("cleared"); });
 $("#pasteImport").addEventListener("click", async () => { try {
     await importProfiles(await navigator.clipboard.readText());
@@ -161,7 +161,6 @@ $("#addForm").addEventListener("submit", async (event) => { event.preventDefault
 else
     state.profiles.push(profile); await persistProfiles(); stopEditing(); renderProfiles(); });
 $("#cancelEdit").addEventListener("click", stopEditing);
-$("#profiles").addEventListener("dblclick", async event => { if (!event.target.closest(".profile")) return; state.listCollapsed = false; await persistPreferences(); renderProfiles(); });
 $("#uaPreset").addEventListener("change", event => { const preset = UA_PRESETS.find(item => item.id === event.target.value); $("#ua").value = preset?.value || ""; });
 $("#rotateUa").addEventListener("click", async () => { const candidates = UA_PRESETS.filter(item => item.value !== state.userAgent); const selected = candidates[Math.floor(Math.random() * candidates.length)] || UA_PRESETS[0]; await applyUa(selected.value, () => showMessage("uaRotated", { name: t(selected.id) })); });
 $("#applyUa").addEventListener("click", async () => { const value = state.userAgent ? null : ($("#ua").value.trim() || null); await applyUa(value, () => showMessage(value ? "uaEnabled" : "uaRestored")); });

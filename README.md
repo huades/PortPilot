@@ -23,8 +23,8 @@ No build, npm install, or command line is required. Do not select the ZIP itself
 - **Copy and edit:** copy a node as standard JSON or edit its name, scheme, host, and port from the node row.
 - **Search and collapse:** filter nodes by name, address, scheme, or tag, and collapse the whole node list.
 - **Test and clean up:** test results appear inside the matching node card; **Delete all** clears every node after confirmation.
-- **Quick expand:** double-click the visible active node to expand the complete list.
-- **Enable a proxy:** click a proxy card; the list automatically collapses while keeping the active node visible. Click **Expand list** to see all nodes.
+- **Manual collapse:** click **Collapse list** for a compact view that keeps only the active node visible; click **Expand list** to restore all nodes.
+- **Enable a proxy:** click a proxy card; the active node stays highlighted and the list remains open.
 - **Disable the proxy:** click **No proxy** to clear PortPilot's Chrome proxy setting and use the computer's normal network connection.
 - **Check a proxy:** click **Test** to display the exit IP, country, and latency.
 - **Change User-Agent:** choose a preset or enter a custom value and click **Apply UA**; once enabled, the action changes to **Disable UA**, which restores Chrome's default User-Agent.
