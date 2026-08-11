@@ -2,36 +2,18 @@
 
 [English](README.md)
 
-PortPilot 是一个轻量级 Google Chrome 扩展，用于切换本地 HTTP、HTTPS、SOCKS4 和 SOCKS5 代理。它可以导入 [MultiPort-Proxy](https://github.com/huades/MultiPort-Proxy) 导出的无凭据 `browser-profiles.json`，检测出口 IP 与延迟，并单独设置浏览器 User-Agent。
+PortPilot 是一个轻量级 Google Chrome 扩展，用于切换 HTTP、HTTPS、SOCKS4 和 SOCKS5 代理。它可以导入 [MultiPort-Proxy](https://github.com/huades/MultiPort-Proxy) 导出的无凭据 `browser-profiles.json`，检测出口 IP 与延迟，并单独设置浏览器 User-Agent。
 
-## 安装
+## 从 GitHub 直接安装
 
-### 使用 Release 压缩包
+1. 在本仓库页面点击 **Code → Download ZIP**。
+2. 解压下载的 ZIP 文件。
+3. 在 Google Chrome 地址栏打开 `chrome://extensions`。
+4. 开启右上角的“开发者模式”。
+5. 点击“加载已解压的扩展程序”。
+6. 选择解压后的 `PortPilot-main` 文件夹，也就是直接包含 `manifest.json` 的文件夹。
 
-1. 从 GitHub Releases 下载 `portpilot-extension.zip` 并解压。
-2. 在 Google Chrome 地址栏打开 `chrome://extensions`。
-3. 开启右上角的“开发者模式”。
-4. 点击“加载已解压的扩展程序”，选择刚才解压的文件夹。
-5. 如需快速使用，可在 Chrome 扩展程序菜单中固定 PortPilot。
-
-### 从源码构建
-
-建议使用 Node.js 22 或更高版本。
-
-```powershell
-npm ci
-npm test
-npm run typecheck
-npm run build
-```
-
-构建完成后，在 `chrome://extensions` 中加载 `apps/extension/dist`。如需生成便于发布的 ZIP：
-
-```powershell
-npm run package
-```
-
-压缩包输出到 `apps/extension/portpilot-extension.zip`。
+不需要安装 npm、运行构建命令或使用命令行。Chrome 不能直接加载 ZIP，请先解压，再选择整个文件夹。
 
 ## 使用方法
 
@@ -49,6 +31,6 @@ npm run package
 - Chrome 不支持需要用户名和密码认证的 SOCKS5 代理，请使用无需认证的本地回环监听端口。
 - 代理检测会访问 `https://ipwho.is/`；其他浏览流量遵循当前选择的 Chrome 代理设置。
 
-## 仓库说明
+## 仓库结构
 
-本仓库仅保留 Chrome 扩展源码、构建脚本、测试和 GitHub Actions 工作流。生成的 `dist`、ZIP 压缩包和 `node_modules` 不提交到 Git。
+仓库根目录本身就是可以加载的 Chrome 扩展。`manifest.json`、JavaScript、样式、弹窗页面和图标均直接提交，因此从 GitHub 下载源码后无需构建。每次 GitHub Actions 成功运行时，也会生成 `portpilot-extension.zip` 构建产物。

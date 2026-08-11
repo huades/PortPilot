@@ -7,13 +7,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: 22, cache: npm }
-      - run: npm ci
-      - run: npm run typecheck
-      - run: npm test
-      - run: npm run build
+      - name: Validate extension files
+        run: |
+          node -e "const m=require('./manifest.json'); if(m.manifest_version!==3) process.exit(1)"
+          test -f background.js
+          test -f popup.js
+          test -f popup.html
+          test -f popup.css
+          test -f icons/icon-128.png
+      - name: Package extension
+        run: zip -r portpilot-extension.zip manifest.json background.js popup.js popup.html popup.css icons
       - uses: actions/upload-artifact@v4
         with:
           name: portpilot-extension
-          path: apps/extension/dist
+          path: portpilot-extension.zip
