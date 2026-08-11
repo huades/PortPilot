@@ -22,7 +22,8 @@ No build, npm install, or command line is required. Do not select the ZIP itself
 - **Paste profiles:** copy JSON, `scheme://host:port`, `host:port`, or one `name,scheme,host,port` entry per line, then click **Paste import**.
 - **Copy and edit:** copy a node as standard JSON or edit its name, scheme, host, and port from the node row.
 - **Search and collapse:** filter nodes by name, address, scheme, or tag, and collapse the whole node list.
-- **Enable a proxy:** click a proxy card. Click **Direct** to restore the direct connection.
+- **Enable a proxy:** click a proxy card; the list automatically collapses while keeping the active node visible. Click **Expand list** to see all nodes.
+- **Disable the proxy:** click **No proxy** to clear PortPilot's Chrome proxy setting and use the computer's normal network connection.
 - **Check a proxy:** click **Test** to display the exit IP, country, and latency.
 - **Change User-Agent:** choose a preset or enter a custom value, then click **Apply User-Agent**. Clear the field and apply it to restore Chrome's default.
 - **Preferences:** use the top-right controls to switch language and light/dark theme. Settings are saved locally.
