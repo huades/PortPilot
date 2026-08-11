@@ -1,0 +1,14 @@
+{
+  "name": "portpilot-extension",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "clean": "node scripts/build.mjs clean",
+    "build": "tsc && node scripts/build.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test test/*.test.mjs",
+    "package": "npm run build && node scripts/package.mjs"
+  },
+  "devDependencies": { "@types/chrome": "^0.1.31", "typescript": "^5.9.3", "jszip": "^3.10.1" }
+}

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>PortPilot</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <div class="brand"><div class="logo">P</div><div><b>PORTPILOT</b><span id="status">DIRECT</span></div></div>
+    <div class="toolbar">
+      <button id="language" class="icon-button" title="Language" aria-label="Language">中 / EN</button>
+      <button id="theme" class="icon-button" title="Theme" aria-label="Theme">☾</button>
+      <button id="direct" data-i18n="direct">直连</button>
+    </div>
+  </header>
+  <main>
+    <section>
+      <div class="heading"><h1 data-i18n="profiles">代理节点</h1><label class="import"><span data-i18n="import">导入 JSON</span><input id="import" type="file" accept=".json,application/json"></label></div>
+      <div id="profiles"></div>
+      <form id="addForm">
+        <input required name="name" data-i18n-placeholder="profileName" placeholder="节点名称">
+        <select name="scheme" aria-label="Proxy scheme"><option>http</option><option>https</option><option>socks5</option><option>socks4</option></select>
+        <input required name="host" placeholder="127.0.0.1">
+        <input required name="port" type="number" min="1" max="65535" placeholder="42000">
+        <button data-i18n="add">添加</button>
+      </form>
+    </section>
+    <section>
+      <div class="heading"><h2>User-Agent</h2><button id="rotateUa" class="secondary" data-i18n="rotateUa">换一个 UA</button></div>
+      <select id="uaPreset" aria-label="User-Agent preset"></select>
+      <textarea id="ua" data-i18n-placeholder="uaPlaceholder" placeholder="留空以恢复浏览器默认 UA"></textarea>
+      <button id="applyUa" class="wide" data-i18n="applyUa">应用 User-Agent</button>
+    </section>
+    <p id="checkResult" role="status" aria-live="polite"></p>
+  </main>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
