@@ -26,7 +26,7 @@ No build, npm install, or command line is required. Do not select the ZIP itself
 - **Manual collapse:** click **Collapse list** for a compact view that keeps only the active node visible; click **Expand list** to restore all nodes.
 - **Enable a proxy:** click a proxy card; the active node stays highlighted and the list remains open.
 - **Disable the proxy:** click **No proxy** to clear PortPilot's Chrome proxy setting and use the computer's normal network connection.
-- **Disconnect protection:** optionally enable automatic proxy shutdown. The background worker checks two independent endpoints once per minute and switches to the normal network only after both fail for two consecutive rounds.
+- **Disconnect protection:** enabled by default and controlled by an explicit On/Off button. The background worker checks two independent endpoints once per minute and switches to the normal network only after both fail for three consecutive rounds.
 - **Check a proxy:** click **Test** to display the exit IP, country, and latency.
 - **Change User-Agent:** choose a preset or enter a custom value and click **Apply UA**; once enabled, the action changes to **Disable UA**, which restores Chrome's default User-Agent.
 - **Preferences:** switch language and choose System, Light, or Dark theme from the top-right controls. Settings are saved locally.

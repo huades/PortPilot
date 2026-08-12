@@ -52,7 +52,7 @@ async function checkProxyHealth() {
         return;
     }
     const failures = Number(saved.proxyHealthFailures || 0) + 1;
-    if (failures < 2) {
+    if (failures < 3) {
         await chrome.storage.local.set({ proxyHealthFailures: failures });
         return;
     }
@@ -67,8 +67,7 @@ chrome.runtime.onMessage.addListener((message, _sender, respond) => { (async () 
 } return { ok: true }; })().then(respond).catch(error => respond({ ok: false, error: String(error) })); return true; });
 chrome.alarms.onAlarm.addListener(alarm => { if (alarm.name === HEALTH_ALARM)
     void checkProxyHealth(); });
-chrome.runtime.onInstalled.addListener(async () => { const saved = await chrome.storage.local.get("profiles"); if (!saved.profiles)
-    await chrome.storage.local.set({ profiles: [], activeProfileId: null, userAgent: null, autoDisconnect: false, proxyHealthFailures: 0 }); await ensureHealthAlarm(); });
+chrome.runtime.onInstalled.addListener(async () => { const saved = await chrome.storage.local.get(["profiles", "autoDisconnect"]); const defaults = {}; if (!saved.profiles) Object.assign(defaults, { profiles: [], activeProfileId: null, userAgent: null }); if (saved.autoDisconnect === undefined) Object.assign(defaults, { autoDisconnect: true, proxyHealthFailures: 0 }); if (Object.keys(defaults).length) await chrome.storage.local.set(defaults); await ensureHealthAlarm(); });
 chrome.runtime.onStartup.addListener(() => void ensureHealthAlarm());
 void ensureHealthAlarm();
 export {};
